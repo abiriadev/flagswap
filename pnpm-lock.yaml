@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      croner:
+        specifier: ^10.0.1
+        version: 10.0.1
       discord.js:
         specifier: ^14.21.0
         version: 14.21.0
@@ -230,6 +233,10 @@ packages:
     resolution: {integrity: sha512-RaI5qZo6D2CVS6sTHFKg1v5Ohq/+Bo2LZ5gzUEwZ/WkHhwtGTCB/sVLw8ijOkAUxasZ+WshN/Rzj4ywsABJ5ZA==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
 
+  croner@10.0.1:
+    resolution: {integrity: sha512-ixNtAJndqh173VQ4KodSdJEI6nuioBWI0V1ITNKhZZsO0pEMoDxz539T4FTTbSZ/xIOSuDnzxLVRqBVSvPNE2g==}
+    engines: {node: '>=18.0'}
+
   discord-api-types@0.38.14:
     resolution: {integrity: sha512-5qknrPxvIzAiX2tDb7dB55A4ydb/nCKxhlO48RrMNeyEGsBgk/88qIAsUm7K7nDnNkkOgJYt/wufybEPYWRMJQ==}
 
@@ -449,6 +456,8 @@ snapshots:
       '@types/node': 24.0.8
 
   '@vladfrangu/async_event_emitter@2.4.6': {}
+
+  croner@10.0.1: {}
 
   discord-api-types@0.38.14: {}
 
