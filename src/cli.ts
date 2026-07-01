@@ -1,4 +1,4 @@
-import { ILogObj, Logger } from 'tslog'
+import { type ILogObj, Logger } from 'tslog'
 import { FlagSwapperBot } from './bot.js'
 import { loadConfig } from './config.js'
 
