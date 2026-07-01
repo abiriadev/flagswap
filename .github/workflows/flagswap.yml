@@ -1,0 +1,79 @@
+name: flagswap
+
+# GitHub Actions can't do timezones, so schedules are in UTC.
+# 00:00 America/Toronto on Canada Day (EDT, UTC-4) == 04:00 UTC.
+on:
+  schedule:
+    - cron: '0 4 1 7 *' # Jul 1 00:00 EDT -> swap
+    - cron: '0 4 2 7 *' # Jul 2 00:00 EDT -> restore
+  workflow_dispatch:
+    inputs:
+      action:
+        description: Operation to run
+        type: choice
+        options:
+          - swap
+          - restore
+        required: true
+
+permissions:
+  contents: read
+  # list & download the backup artifact across runs
+  actions: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+      GUILD_ID: ${{ secrets.GUILD_ID }}
+      LOG_CHANNEL_ID: ${{ secrets.LOG_CHANNEL_ID }}
+      BACKUP_PATH: ./backup-codinglab.json
+    steps:
+      - uses: actions/checkout@v4
+
+      # Map the trigger to swap or restore.
+      - id: pick
+        run: |
+          case "${{ github.event.schedule }}" in
+            '0 4 1 7 *') action=swap ;;
+            '0 4 2 7 *') action=restore ;;
+            *)           action='${{ inputs.action }}' ;;
+          esac
+          echo "action=$action" >> "$GITHUB_OUTPUT"
+          echo "Running: $action"
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.12.4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # For a restore, pull the backup produced by the most recent swap run.
+      - name: Fetch latest backup artifact
+        if: steps.pick.outputs.action == 'restore'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          run_id=$(gh api "repos/${{ github.repository }}/actions/artifacts" \
+            --jq '[.artifacts[] | select(.name=="backup-codinglab" and .expired==false)]
+                  | sort_by(.created_at) | last | .workflow_run.id')
+          if [ -z "$run_id" ] || [ "$run_id" = "null" ]; then
+            echo "::error::No backup artifact found to restore from." && exit 1
+          fi
+          gh run download "$run_id" -n backup-codinglab -D .
+
+      - name: Run ${{ steps.pick.outputs.action }}
+        run: pnpm ${{ steps.pick.outputs.action }}
+
+      # Persist the fresh backup so tomorrow's restore run can find it.
+      - name: Upload backup artifact
+        if: steps.pick.outputs.action == 'swap'
+        uses: actions/upload-artifact@v4
+        with:
+          name: backup-codinglab
+          path: backup-codinglab.json
+          retention-days: 7
