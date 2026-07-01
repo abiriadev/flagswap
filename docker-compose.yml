@@ -1,0 +1,11 @@
+services:
+  flagswap:
+    build: .
+    restart: unless-stopped
+    environment:
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      GUILD_ID: ${GUILD_ID}
+      ADMIN_CHANNEL_ID: ${ADMIN_CHANNEL_ID}
+      TIMEZONE: ${TIMEZONE:-America/Toronto}
+    volumes:
+      - ./backup-codinglab.json:/app/backup-codinglab.json
