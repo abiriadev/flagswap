@@ -11,6 +11,9 @@ importers:
       discord.js:
         specifier: ^14.21.0
         version: 14.21.0
+      tslog:
+        specifier: ^4.10.2
+        version: 4.10.2
     devDependencies:
       '@types/node':
         specifier: ^24.0.8
@@ -265,6 +268,10 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
+  tslog@4.10.2:
+    resolution: {integrity: sha512-XuELoRpMR+sq8fuWwX7P0bcj+PRNiicOKDEb3fGNURhxWVyykCi9BNq7c4uVz7h7P0sj8qgBsr5SWS6yBClq3g==}
+    engines: {node: '>=16'}
+
   tsx@4.20.3:
     resolution: {integrity: sha512-qjbnuR9Tr+FJOMBqJCW5ehvIo/buZq7vH7qD7JziU98h6l3qGy0a/yPFjwO+y0/T7GFpNgNAvEcPPVfyT8rrPQ==}
     engines: {node: '>=18.0.0'}
@@ -506,6 +513,8 @@ snapshots:
   ts-mixer@6.0.4: {}
 
   tslib@2.8.1: {}
+
+  tslog@4.10.2: {}
 
   tsx@4.20.3:
     dependencies:
