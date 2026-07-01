@@ -1,7 +1,7 @@
 import { Cron } from 'croner'
 import { FlagSwapperBot } from './bot.js'
 import { loadConfig } from './config.js'
-import { ILogObj, Logger } from 'tslog'
+import { type ILogObj, Logger } from 'tslog'
 import { env } from 'node:process'
 
 const config = await loadConfig()
