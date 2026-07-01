@@ -1,10 +1,14 @@
 {
 	"name": "flagswap",
 	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
+	"description": "Discord bot that swaps channel-name emojis to the maple flag at Canada Day",
+	"main": "dist/index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"check": "tsc --noEmit",
+		"start": "tsx --env-file-if-exists .env src/index.ts",
+		"swap": "tsx --env-file-if-exists .env src/cli.ts swap",
+		"restore": "tsx --env-file-if-exists .env src/cli.ts restore",
+		"build": "tsc"
 	},
 	"keywords": [],
 	"author": "",
