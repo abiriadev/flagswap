@@ -10,6 +10,7 @@ export const configSchema = z.object({
 	BACKUP_PATH: z
 		.string()
 		.default('./backup-codinglab.json'),
+	LOG_LEVEL: z.number().int().nonnegative().default(3),
 	// IANA name
 	TZ: z.string().default('America/Toronto'),
 })
