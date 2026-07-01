@@ -1,5 +1,6 @@
 import {
 	Client,
+	Events,
 	GatewayIntentBits,
 	type Guild,
 } from 'discord.js'
@@ -32,7 +33,7 @@ export class FlagSwapperBot {
 	// wait until the gateway is ready.
 	async start(): Promise<void> {
 		await new Promise<void>((resolve, reject) => {
-			this.#client.once('clientReady', c => {
+			this.#client.once(Events.ClientReady, c => {
 				this.#logger.info(
 					`Logged in as ${c.user.tag}`,
 				)
@@ -55,6 +56,8 @@ export class FlagSwapperBot {
 	 * backup is safely written.
 	 */
 	async swap(): Promise<void> {
+		this.#logger.info('swap started')
+
 		const guild = await this.guild()
 		await this.announce(
 			'🍁 **Starting Canada Day flag swap...**',
@@ -94,10 +97,14 @@ export class FlagSwapperBot {
 		await this.announce(
 			`🍁 **Flag swap complete** — ${toChange.length} channel(s) flagged.`,
 		)
+
+		this.#logger.info('swap completed')
 	}
 
 	/** Restore the channel names recorded by the most recent swap. */
 	async restore(): Promise<void> {
+		this.#logger.info('restore started')
+
 		const guild = await this.guild()
 		const backup = await loadBackup(
 			this.#config.BACKUP_PATH,
@@ -124,8 +131,10 @@ export class FlagSwapperBot {
 		}
 
 		await this.announce(
-			`✅ **Restore complete** — ${restored} channel(s) restored.`,
+			`✅ **Restore complete** - ${restored} channel(s) restored.`,
 		)
+
+		this.#logger.info('restore completed')
 	}
 
 	private async guild(): Promise<Guild> {
