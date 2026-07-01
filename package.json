@@ -12,7 +12,8 @@
 	"packageManager": "pnpm@10.12.4",
 	"dependencies": {
 		"discord.js": "^14.21.0",
-		"tslog": "^4.10.2"
+		"tslog": "^4.10.2",
+		"zod": "^4.4.3"
 	},
 	"devDependencies": {
 		"@types/node": "^24.0.8",

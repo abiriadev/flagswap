@@ -14,6 +14,9 @@ importers:
       tslog:
         specifier: ^4.10.2
         version: 4.10.2
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
     devDependencies:
       '@types/node':
         specifier: ^24.0.8
@@ -301,6 +304,9 @@ packages:
       utf-8-validate:
         optional: true
 
+  zod@4.4.3:
+    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
+
 snapshots:
 
   '@discordjs/builders@1.11.2':
@@ -530,3 +536,5 @@ snapshots:
   undici@6.21.3: {}
 
   ws@8.18.3: {}
+
+  zod@4.4.3: {}
